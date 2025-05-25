@@ -2,6 +2,7 @@ import flatpickr from 'flatpickr';
 import iziToast from 'izitoast';
 
 const startButton = document.querySelector('button[data-start]');
+const dateTimePicker = document.querySelector('#datetime-picker');
 const daysEl = document.querySelector('span[data-days]');
 const hoursEl = document.querySelector('span[data-hours]');
 const minutesEl = document.querySelector('span[data-minutes]');
@@ -52,8 +53,13 @@ function setStartBtnDisabled(disabled) {
   startButton.disabled = disabled;
 }
 
+function setDateTimePickerDisabled(disabled) {
+  dateTimePicker.disabled = disabled;
+}
+
 function startTimer() {
   setStartBtnDisabled(true);
+  setDateTimePickerDisabled(true);
 
   printTime();
 
@@ -62,6 +68,9 @@ function startTimer() {
 
     if (deltaTime <= 0) {
       clearInterval(interval);
+
+      setDateTimePickerDisabled(false);
+
       return;
     }
   }, 1000);
@@ -93,4 +102,4 @@ const options = {
   },
 };
 
-flatpickr('#datetime-picker', options);
+flatpickr(dateTimePicker, options);
